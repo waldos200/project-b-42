@@ -8,6 +8,6 @@ api.use(express.json({ extends: true }));
 
 api.get('/', (req, res) => res.send('hello word'));
 
-api.use(require('../router'));
+api.use(require('../routers'));
 
 module.exports = { api, PORT };
