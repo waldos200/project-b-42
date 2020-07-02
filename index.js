@@ -1,4 +1,4 @@
 const { api, PORT } = require('./api');
 
-// eslint-disable-next-line linebreak-style
+// eslint-disable-next-line no-console
 api.listen(PORT, () => console.log((`Listening on ${PORT}`)));
