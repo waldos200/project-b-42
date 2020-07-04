@@ -11,7 +11,7 @@ api.use(express.json({ extends: true }));
 
 api.get('/', (req, res) => res.send(`Hello Word ${req.perrito}`));
 
-api.use(require('../routers'));
+api.use('/api/v1', require('../routers'));
 
 api.use(errors());
 
