@@ -1,4 +1,5 @@
 const { UserService } = require('../services');
+const { comparePasswords } = require('../utils');
 
 module.exports = {
   create: async (req, res) => {
@@ -60,6 +61,18 @@ module.exports = {
       const user = await UserService.create(req.body);
       user.password = undefined;
       res.status(201).json(user);
+    } catch (err) {
+      res.status(400).json(err);
+    }
+  },
+  login: async (req, res) => {
+    const { email, password } = req.body;
+    try {
+      const user = await UserService.findOneByEmail(email);
+      if (!user) res.status(400).json({ message: 'Error on credentials' });
+      const isValid = comparePasswords(user.password, password);
+      if (!isValid) res.status(400).json({ message: 'Error on credentials' });
+      res.status(200).json({ message: 'login successful', token: null });
     } catch (err) {
       res.status(400).json(err);
     }
