@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.post('/singup',
   UserValidator.create, UserController.singup);
-router.post('/login', UserValidator.login, UserController.login);
+router.post('/login',
+  UserValidator.login, UserController.login);
 
 module.exports = router;

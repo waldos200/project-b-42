@@ -67,14 +67,10 @@ module.exports = {
   },
   login: async (req, res) => {
     const { email, password } = req.body;
-    try {
-      const user = await UserService.findOneByEmail(email);
-      if (!user) res.status(400).json({ message: 'Error on credentials' });
-      const isValid = comparePasswords(user.password, password);
-      if (!isValid) res.status(400).json({ message: 'Error on credentials' });
-      res.status(200).json({ message: 'login successful', token: null });
-    } catch (err) {
-      res.status(400).json(err);
-    }
+    const user = await UserService.findOneByEmail(email);
+    if (!user) res.status(400).json({ message: 'Error on credentials' });
+    const isValid = comparePasswords(user.password, password);
+    if (!isValid) res.status(400).json({ message: 'Error on credentials' });
+    res.status(200).json({ message: 'login successful', token: null });
   },
 };
