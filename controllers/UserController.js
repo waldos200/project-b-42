@@ -2,7 +2,10 @@ const { UserService } = require('../services');
 
 module.exports = {
   create: async (req, res) => {
+    const { email } = req.body;
     try {
+      const userExists = await UserService.findOneByEmail(email);
+      if (userExists) res.status(400).json({message: 'Emailalready taken'});
       const user = await UserService.create(req.body);
       res.status(201).json(user);
     } catch (err) {
