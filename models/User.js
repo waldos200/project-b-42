@@ -29,18 +29,29 @@ const userSchema = new Schema({
     required: true,
     trim: true,
   },
-  /* // Ejemplo de REFERENCIA
-  author_of_references: [{
-    type: mongoose.Types.ObjectId,
-    ref: 'Books',
+  posts: [{
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    image: {
+      type: String,
+    },
+    body: {
+      type: String,
+      required: true,
+    },
+    date: {
+      type: String,
+      default: Date.now(),
+    },
+    permissions: {
+      type: String,
+      enum: ['PUBLIC', 'PRIVATE'],
+      default: 'PUBLIC',
+    },
   }],
-  // Ejemplo de EMBEBIDOS
-  author_of_embeded: [{
-    author: { type: String },
-    name: { type: String },
-    idbn: { type: String },
-    cover_art: { type: String },
-  }], */
 }, {
   timestamps: true,
   versionKey: false,
