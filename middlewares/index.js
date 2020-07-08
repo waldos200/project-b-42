@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 module.exports = {
   showDate: (req, res, next) => {
     const date = new Date();
+    // eslint-disable-next-line no-console
     console.log(`Año de peticion: ${date.getFullYear()}`);
     next();
   },

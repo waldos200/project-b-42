@@ -7,7 +7,7 @@ module.exports = {
     const { email } = req.body;
     try {
       const userExists = await UserService.findOneByEmail(email);
-      if (userExists) res.status(400).json({message: 'Email already taken'});
+      if (userExists) res.status(400).json({ message: 'Email already taken' });
       const user = await UserService.create(req.body);
       res.status(201).json(user);
     } catch (err) {
@@ -58,7 +58,7 @@ module.exports = {
     const { email } = req.body;
     try {
       const userExists = await UserService.findOneByEmail(email);
-      if (userExists) res.status(400).json({message: 'Emailalready taken'});
+      if (userExists) res.status(400).json({ message: 'Emailalready taken' });
       const user = await UserService.create(req.body);
       user.password = undefined;
       res.status(201).json(user);
