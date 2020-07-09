@@ -13,4 +13,28 @@ module.exports = {
       permissions: Joi.string().valid('PUBLIC', 'PRIVATE'),
     }),
   }),
+  findAll: celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      idUser: Joi.string().required(),
+    }),
+  }),
+  findOne: celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      idUser: Joi.string().required(),
+      idPost: Joi.string().required(),
+    }),
+  }),
+  updateOne: celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      idUser: Joi.string().required(),
+      idPost: Joi.string().required(),
+    }),
+    [Segments.BODY]: Joi.object().keys({
+      title: Joi.string(),
+      body: Joi.string(),
+      image: Joi.string(),
+      date: Joi.date(),
+      permissions: Joi.string().valid('PUBLIC', 'PRIVATE'),
+    }),
+  }),
 };
