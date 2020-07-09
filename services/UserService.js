@@ -10,8 +10,4 @@ module.exports = {
     return user.save();
   },
   deleteOneById: (id) => User.findByIdAndDelete(id),
-  addPost: (user, post) => {
-    user.posts.push(post);
-    return user.save();
-  },
 };
