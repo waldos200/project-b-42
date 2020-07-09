@@ -3,16 +3,22 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const postSchema = new Schema({
+  is_active: {
+    type: Boolean,
+    default: true,
+  },
   title: {
     type: String,
     required: true,
     trim: true,
   },
-  image: {
+  body: {
     type: String,
+    required: true,
   },
+  image: String,
   date: {
-    type: String,
+    type: Date,
     default: Date.now(),
   },
   permissions: {
