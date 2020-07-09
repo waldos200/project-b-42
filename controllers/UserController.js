@@ -7,7 +7,7 @@ module.exports = {
     const { email } = req.body;
     try {
       const userExists = await UserService.findOneByEmail(email);
-      if (userExists) res.status(400).json({ message: 'Email already taken' });
+      if (userExists) res.stats(400).json({ message: 'Email already taken' });
       const user = await UserService.create(req.body);
       res.status(201).json(user);
     } catch (err) {
@@ -16,8 +16,8 @@ module.exports = {
   },
   findAll: async (req, res) => {
     try {
-      const user = await UserService.findAll();
-      res.status(201).json(user);
+      const users = await UserService.findAll();
+      res.status(200).json(users);
     } catch (err) {
       res.status(400).json(err);
     }
@@ -26,8 +26,8 @@ module.exports = {
     const { id } = req.params;
     try {
       const user = await UserService.findOneById(id);
-      UserService.findByid(id);
-      res.status(201).json(user);
+      if (!user) res.status(404).json({ message: 'User not found' });
+      res.status(200).json(user);
     } catch (err) {
       res.status(400).json(err);
     }
@@ -37,8 +37,9 @@ module.exports = {
     const { body } = req;
     try {
       const user = await UserService.findOneById(id);
+      if (!user) res.status(404).json({ message: 'User not found' });
       const modifiedUser = await UserService.updateOne(user, body);
-      res.status(201).json(modifiedUser);
+      res.status(200).json(modifiedUser);
     } catch (err) {
       res.status(400).json(err);
     }
@@ -48,7 +49,7 @@ module.exports = {
     try {
       const user = await UserService.findOneById(id);
       if (!user) res.status(404).json({ message: 'User not found' });
-      await UserService.deleteOneByid(id);
+      await UserService.updateOne(user, { is_active: false });
       res.status(204).json();
     } catch (err) {
       res.status(400).json(err);
@@ -58,7 +59,7 @@ module.exports = {
     const { email } = req.body;
     try {
       const userExists = await UserService.findOneByEmail(email);
-      if (userExists) res.status(400).json({ message: 'Emailalready taken' });
+      if (userExists) res.stats(400).json({ message: 'Email already taken' });
       const user = await UserService.create(req.body);
       user.password = undefined;
       res.status(201).json(user);

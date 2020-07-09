@@ -17,4 +17,7 @@ router.get('/users/:idUser/posts/:idPost',
 router.patch('/users/:idUser/posts/:idPost',
   PostValidator.updateOne, PostController.updateOne);
 
+router.delete('/users/:idUser/posts/:idPost',
+  PostValidator.deleteOne, PostController.deleteOne);
+
 module.exports = router;

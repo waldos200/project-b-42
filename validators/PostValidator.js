@@ -37,4 +37,10 @@ module.exports = {
       permissions: Joi.string().valid('PUBLIC', 'PRIVATE'),
     }),
   }),
+  deleteOne: celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      idUser: Joi.string().required(),
+      idPost: Joi.string().required(),
+    }),
+  }),
 };
