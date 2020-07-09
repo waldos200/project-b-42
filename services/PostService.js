@@ -9,6 +9,7 @@ module.exports = {
   findOneByIdInUser: (idPost, user) => user.posts.id(idPost),
   updateOneByIdInUser: (idPost, user, body) => {
     const updatedPosts = user.posts.map((post) => {
+      // eslint-disable-next-line no-underscore-dangle
       if (post._id.toString() === idPost) {
         const updatedPost = Object.assign(post, body);
         return updatedPost;
