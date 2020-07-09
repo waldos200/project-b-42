@@ -17,4 +17,55 @@ module.exports = {
       res.status(400).json({ message: 'error adding post to user', error });
     }
   },
+  findAll: async (req, res) => {
+    const { idUser } = req.params;
+    try {
+      // 1) Traemos el usuario
+      const user = await UserService.findOneById(idUser);
+
+      // 2) Sacamos los posts del objeto de usuario
+      const { posts } = user;
+
+      // 3) Responder al cliente con los posts del usuario
+      res.status(200).json(posts);
+    } catch (error) {
+      res.status(400).json({ message: 'Error getting user posts', error });
+    }
+  },
+  findOne: async (req, res) => {
+    const { idUser, idPost } = req.params;
+    try {
+      // 1) Traemos el usuario
+      const user = await UserService.findOneById(idUser);
+
+      // 2) Sacamos el post deseado del objeto de usuario
+      const post = PostService.findOneByIdInUser(idPost, user);
+      if (!post) res.status(404).json({ message: 'Post not found' });
+
+      // 3) Responder al cliente con el post deseado del usuario
+      res.status(200).json(post);
+    } catch (error) {
+      res.status(400).json({ message: 'Error getting user post by id', error });
+    }
+  },
+  updateOne: async (req, res) => {
+    const { idUser, idPost } = req.params;
+    const { body } = req;
+    try {
+      // 1) Traemos el usuario
+      const user = await UserService.findOneById(idUser);
+
+      // 2) Sacamos el post deseado del objeto de usuario
+      const post = PostService.findOneByIdInUser(idPost, user);
+      if (!post) res.status(404).json({ message: 'Post not found' });
+
+      // 3) Actualizamos el post del usuario
+      const updatedUser = await PostService.updateOneByIdInUser(idPost, user, body);
+
+      // 4) Responder al cliente con el post modificado
+      res.status(200).json(updatedUser.posts.id(idPost));
+    } catch (error) {
+      res.status(400).json({ message: 'Error getting user post by id', error });
+    }
+  },
 };
